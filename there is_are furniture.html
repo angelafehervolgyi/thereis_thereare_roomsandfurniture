@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESL Exercise: Home, Rooms & Furniture Vocabulary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            color: #764ba2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #f093fb;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .instructions h3 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+
+        .instructions p {
+            color: #424242;
+            line-height: 1.6;
+        }
+
+        .question {
+            background: #f5f5f5;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .question-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .blank {
+            background: #fff59d;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #f57f17;
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .answer-btn {
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .answer-btn:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+
+        .answer-btn.selected {
+            border-color: #667eea;
+            background: #e8eaf6;
+        }
+
+        .answer-btn.correct {
+            background: #c8e6c9;
+            border-color: #4caf50;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .answer-btn.incorrect {
+            background: #ffcdd2;
+            border-color: #f44336;
+            color: #c62828;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 1em;
+            display: none;
+        }
+
+        .feedback.correct {
+            color: #2e7d32;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            color: #c62828;
+            display: block;
+        }
+
+        .feedback::before {
+            content: '✓ ';
+        }
+
+        .feedback.incorrect::before {
+            content: '✗ ';
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(240, 147, 251, 0.6);
+        }
+
+        .score-display {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            color: white;
+            display: none;
+        }
+
+        .score-display.show {
+            display: block;
+            animation: scoreAppear 0.5s ease;
+        }
+
+        @keyframes scoreAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .score-display h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .score-display .score-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-display .score-percentage {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .score-message {
+            font-size: 1.2em;
+            font-style: italic;
+        }
+
+        .emoji {
+            font-size: 3em;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Rooms & Furniture 🛋️</h1>
+            <p class="subtitle">Learn Vocabulary - Rooms and Furniture Names</p>
+        </header>
+
+        <div class="instructions">
+            <h3>📝 Instructions:</h3>
+            <p>Choose the correct word to complete each sentence. You will earn 1 point for each correct answer. Click "Submit" when you're ready to see your final score!</p>
+        </div>
+
+        <form id="quizForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <span class="question-number">1</span>
+                <div class="question-text">
+                    We cook our meals in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="1" data-answer="bedroom" data-correct="false">bedroom</button>
+                    <button type="button" class="answer-btn" data-question="1" data-answer="kitchen" data-correct="true">kitchen</button>
+                    <button type="button" class="answer-btn" data-question="1" data-answer="bathroom" data-correct="false">bathroom</button>
+                    <button type="button" class="answer-btn" data-question="1" data-answer="living room" data-correct="false">living room</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <span class="question-number">2</span>
+                <div class="question-text">
+                    I sleep in my <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="2" data-answer="kitchen" data-correct="false">kitchen</button>
+                    <button type="button" class="answer-btn" data-question="2" data-answer="dining room" data-correct="false">dining room</button>
+                    <button type="button" class="answer-btn" data-question="2" data-answer="bedroom" data-correct="true">bedroom</button>
+                    <button type="button" class="answer-btn" data-question="2" data-answer="garage" data-correct="false">garage</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <span class="question-number">3</span>
+                <div class="question-text">
+                    The family watches TV together in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="3" data-answer="bedroom" data-correct="false">bedroom</button>
+                    <button type="button" class="answer-btn" data-question="3" data-answer="kitchen" data-correct="false">kitchen</button>
+                    <button type="button" class="answer-btn" data-question="3" data-answer="hallway" data-correct="false">hallway</button>
+                    <button type="button" class="answer-btn" data-question="3" data-answer="living room" data-correct="true">living room</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <span class="question-number">4</span>
+                <div class="question-text">
+                    I wash my hands and take a shower in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="4" data-answer="basement" data-correct="false">basement</button>
+                    <button type="button" class="answer-btn" data-question="4" data-answer="bathroom" data-correct="true">bathroom</button>
+                    <button type="button" class="answer-btn" data-question="4" data-answer="kitchen" data-correct="false">kitchen</button>
+                    <button type="button" class="answer-btn" data-question="4" data-answer="bedroom" data-correct="false">bedroom</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <span class="question-number">5</span>
+                <div class="question-text">
+                    I eat dinner with my family in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="5" data-answer="living room" data-correct="false">living room</button>
+                    <button type="button" class="answer-btn" data-question="5" data-answer="patio" data-correct="false">patio</button>
+                    <button type="button" class="answer-btn" data-question="5" data-answer="dining room" data-correct="true">dining room</button>
+                    <button type="button" class="answer-btn" data-question="5" data-answer="kitchen" data-correct="false">kitchen</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <span class="question-number">6</span>
+                <div class="question-text">
+                    There is a comfortable <span class="blank">______</span> in the living room where we sit.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="6" data-answer="table" data-correct="false">table</button>
+                    <button type="button" class="answer-btn" data-question="6" data-answer="refrigerator" data-correct="false">refrigerator</button>
+                    <button type="button" class="answer-btn" data-question="6" data-answer="sofa" data-correct="true">sofa</button>
+                    <button type="button" class="answer-btn" data-question="6" data-answer="bed" data-correct="false">bed</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <span class="question-number">7</span>
+                <div class="question-text">
+                    I study and write at my <span class="blank">______</span> in the bedroom.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="7" data-answer="bed" data-correct="false">bed</button>
+                    <button type="button" class="answer-btn" data-question="7" data-answer="desk" data-correct="true">desk</button>
+                    <button type="button" class="answer-btn" data-question="7" data-answer="shelf" data-correct="false">shelf</button>
+                    <button type="button" class="answer-btn" data-question="7" data-answer="chair" data-correct="false">chair</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <span class="question-number">8</span>
+                <div class="question-text">
+                    The dishes are washed at the <span class="blank">______</span> in the kitchen.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="8" data-answer="cabinet" data-correct="false">cabinet</button>
+                    <button type="button" class="answer-btn" data-question="8" data-answer="counter" data-correct="false">counter</button>
+                    <button type="button" class="answer-btn" data-question="8" data-answer="sink" data-correct="true">sink</button>
+                    <button type="button" class="answer-btn" data-question="8" data-answer="stove" data-correct="false">stove</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <span class="question-number">9</span>
+                <div class="question-text">
+                    We cook food on the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="9" data-answer="refrigerator" data-correct="false">refrigerator</button>
+                    <button type="button" class="answer-btn" data-question="9" data-answer="stove" data-correct="true">stove</button>
+                    <button type="button" class="answer-btn" data-question="9" data-answer="microwave" data-correct="false">microwave</button>
+                    <button type="button" class="answer-btn" data-question="9" data-answer="sink" data-correct="false">sink</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <span class="question-number">10</span>
+                <div class="question-text">
+                    Cold food and milk are kept in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="10" data-answer="dishwasher" data-correct="false">dishwasher</button>
+                    <button type="button" class="answer-btn" data-question="10" data-answer="pantry" data-correct="false">pantry</button>
+                    <button type="button" class="answer-btn" data-question="10" data-answer="oven" data-correct="false">oven</button>
+                    <button type="button" class="answer-btn" data-question="10" data-answer="refrigerator" data-correct="true">refrigerator</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question">
+                <span class="question-number">11</span>
+                <div class="question-text">
+                    I hang my clothes in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="11" data-answer="wardrobe" data-correct="false">wardrobe</button>
+                    <button type="button" class="answer-btn" data-question="11" data-answer="shelf" data-correct="false">shelf</button>
+                    <button type="button" class="answer-btn" data-question="11" data-answer="closet" data-correct="true">closet</button>
+                    <button type="button" class="answer-btn" data-question="11" data-answer="drawer" data-correct="false">drawer</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question">
+                <span class="question-number">12</span>
+                <div class="question-text">
+                    I sit on a <span class="blank">______</span> when I eat at the table.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="12" data-answer="bench" data-correct="false">bench</button>
+                    <button type="button" class="answer-btn" data-question="12" data-answer="sofa" data-correct="false">sofa</button>
+                    <button type="button" class="answer-btn" data-question="12" data-answer="chair" data-correct="true">chair</button>
+                    <button type="button" class="answer-btn" data-question="12" data-answer="stool" data-correct="false">stool</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 13 -->
+            <div class="question">
+                <span class="question-number">13</span>
+                <div class="question-text">
+                    I store books on a <span class="blank">______</span> in my room.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="13" data-answer="cabinet" data-correct="false">cabinet</button>
+                    <button type="button" class="answer-btn" data-question="13" data-answer="bookshelf" data-correct="true">bookshelf</button>
+                    <button type="button" class="answer-btn" data-question="13" data-answer="drawer" data-correct="false">drawer</button>
+                    <button type="button" class="answer-btn" data-question="13" data-answer="table" data-correct="false">table</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 14 -->
+            <div class="question">
+                <span class="question-number">14</span>
+                <div class="question-text">
+                    We watch movies on the <span class="blank">______</span> in the living room.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="14" data-answer="mirror" data-correct="false">mirror</button>
+                    <button type="button" class="answer-btn" data-question="14" data-answer="picture" data-correct="false">picture</button>
+                    <button type="button" class="answer-btn" data-question="14" data-answer="television" data-correct="true">television</button>
+                    <button type="button" class="answer-btn" data-question="14" data-answer="lamp" data-correct="false">lamp</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 15 -->
+            <div class="question">
+                <span class="question-number">15</span>
+                <div class="question-text">
+                    I sleep on my <span class="blank">______</span> every night.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="15" data-answer="mat" data-correct="false">mat</button>
+                    <button type="button" class="answer-btn" data-question="15" data-answer="bed" data-correct="true">bed</button>
+                    <button type="button" class="answer-btn" data-question="15" data-answer="rug" data-correct="false">rug</button>
+                    <button type="button" class="answer-btn" data-question="15" data-answer="couch" data-correct="false">couch</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 16 -->
+            <div class="question">
+                <span class="question-number">16</span>
+                <div class="question-text">
+                    I look at myself in the <span class="blank">______</span> in the bathroom.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="16" data-answer="door" data-correct="false">door</button>
+                    <button type="button" class="answer-btn" data-question="16" data-answer="mirror" data-correct="true">mirror</button>
+                    <button type="button" class="answer-btn" data-question="16" data-answer="window" data-correct="false">window</button>
+                    <button type="button" class="answer-btn" data-question="16" data-answer="shelf" data-correct="false">shelf</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 17 -->
+            <div class="question">
+                <span class="question-number">17</span>
+                <div class="question-text">
+                    The stairs connect the <span class="blank">______</span> of my house.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="17" data-answer="walls" data-correct="false">walls</button>
+                    <button type="button" class="answer-btn" data-question="17" data-answer="doors" data-correct="false">doors</button>
+                    <button type="button" class="answer-btn" data-question="17" data-answer="floors" data-correct="true">floors</button>
+                    <button type="button" class="answer-btn" data-question="17" data-answer="rooms" data-correct="false">rooms</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 18 -->
+            <div class="question">
+                <span class="question-number">18</span>
+                <div class="question-text">
+                    The <span class="blank">______</span> is a small room where we store things.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="18" data-answer="basement" data-correct="false">basement</button>
+                    <button type="button" class="answer-btn" data-question="18" data-answer="attic" data-correct="false">attic</button>
+                    <button type="button" class="answer-btn" data-question="18" data-answer="storage room" data-correct="true">storage room</button>
+                    <button type="button" class="answer-btn" data-question="18" data-answer="garage" data-correct="false">garage</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 19 -->
+            <div class="question">
+                <span class="question-number">19</span>
+                <div class="question-text">
+                    We park our car in the <span class="blank">______</span>.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="19" data-answer="patio" data-correct="false">patio</button>
+                    <button type="button" class="answer-btn" data-question="19" data-answer="garage" data-correct="true">garage</button>
+                    <button type="button" class="answer-btn" data-question="19" data-answer="hallway" data-correct="false">hallway</button>
+                    <button type="button" class="answer-btn" data-question="19" data-answer="basement" data-correct="false">basement</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <!-- Question 20 -->
+            <div class="question">
+                <span class="question-number">20</span>
+                <div class="question-text">
+                    I light up the room with a <span class="blank">______</span> in the evening.
+                </div>
+                <div class="answers">
+                    <button type="button" class="answer-btn" data-question="20" data-answer="torch" data-correct="false">torch</button>
+                    <button type="button" class="answer-btn" data-question="20" data-answer="lamp" data-correct="true">lamp</button>
+                    <button type="button" class="answer-btn" data-question="20" data-answer="bulb" data-correct="false">bulb</button>
+                    <button type="button" class="answer-btn" data-question="20" data-answer="candle" data-correct="false">candle</button>
+                </div>
+                <div class="feedback"></div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="submit-btn" id="submitBtn">✓ Submit Answers</button>
+                <button type="button" class="reset-btn" id="resetBtn">↻ Reset</button>
+            </div>
+        </form>
+
+        <div class="score-display" id="scoreDisplay">
+            <h2>Great Job! 🎉</h2>
+            <div class="emoji" id="scoreEmoji">🌟</div>
+            <div class="score-number"><span id="finalScore">0</span>/20</div>
+            <div class="score-percentage">(<span id="scorePercentage">0</span>%)</div>
+            <div class="score-message" id="scoreMessage">Keep practicing!</div>
+        </div>
+    </div>
+
+    <script>
+        const answerBtns = document.querySelectorAll('.answer-btn');
+        const submitBtn = document.getElementById('submitBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const finalScoreSpan = document.getElementById('finalScore');
+        const scorePercentageSpan = document.getElementById('scorePercentage');
+        const scoreMessageSpan = document.getElementById('scoreMessage');
+        const scoreEmojiSpan = document.getElementById('scoreEmoji');
+
+        const selectedAnswers = {};
+
+        // Handle answer button clicks
+        answerBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const questionNum = btn.dataset.question;
+                const question = btn.closest('.question');
+                const buttons = question.querySelectorAll('.answer-btn');
+                
+                // Remove selected class from all buttons in this question
+                buttons.forEach(b => {
+                    b.classList.remove('selected');
+                    b.classList.remove('correct');
+                    b.classList.remove('incorrect');
+                });
+                
+                // Add selected class to clicked button
+                btn.classList.add('selected');
+                
+                // Store the selected answer
+                selectedAnswers[questionNum] = {
+                    answer: btn.dataset.answer,
+                    isCorrect: btn.dataset.correct === 'true'
+                };
+            });
+        });
+
+        // Submit button
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            calculateScore();
+            displayScore();
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resetQuiz();
+        });
+
+        function calculateScore() {
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach((question, index) => {
+                const questionNum = index + 1;
+                const buttons = question.querySelectorAll('.answer-btn');
+                const feedback = question.querySelector('.feedback');
+                let answered = false;
+
+                buttons.forEach(btn => {
+                    if (btn.classList.contains('selected')) {
+                        answered = true;
+                        if (btn.dataset.correct === 'true') {
+                            btn.classList.add('correct');
+                            feedback.classList.remove('incorrect');
+                            feedback.classList.add('correct');
+                            feedback.textContent = 'Correct!';
+                            score++;
+                        } else {
+                            btn.classList.add('incorrect');
+                            feedback.classList.remove('correct');
+                            feedback.classList.add('incorrect');
+                            feedback.textContent = 'Incorrect!';
+                            
+                            // Highlight correct answer
+                            buttons.forEach(b => {
+                                if (b.dataset.correct === 'true') {
+                                    b.classList.add('correct');
+                                }
+                            });
+                        }
+                    }
+                });
+
+                if (!answered) {
+                    feedback.classList.remove('correct');
+                    feedback.classList.add('incorrect');
+                    feedback.textContent = 'Not answered!';
+                }
+            });
+
+            return score;
+        }
+
+        function displayScore() {
+            const score = calculateScore();
+            const percentage = Math.round((score / 20) * 100);
+            
+            finalScoreSpan.textContent = score;
+            scorePercentageSpan.textContent = percentage;
+            
+            // Set message and emoji based on score
+            if (score === 20) {
+                scoreMessageSpan.textContent = 'Perfect! You are a star! ⭐';
+                scoreEmojiSpan.textContent = '🏆';
+            } else if (score >= 18) {
+                scoreMessageSpan.textContent = 'Excellent! Almost perfect! 🌟';
+                scoreEmojiSpan.textContent = '⭐';
+            } else if (score >= 15) {
+                scoreMessageSpan.textContent = 'Great! You did very well! 👏';
+                scoreEmojiSpan.textContent = '😊';
+            } else if (score >= 12) {
+                scoreMessageSpan.textContent = 'Good! You\'re on the right track! 💪';
+                scoreEmojiSpan.textContent = '😌';
+            } else if (score >= 10) {
+                scoreMessageSpan.textContent = 'Not bad! Keep practicing! 📚';
+                scoreEmojiSpan.textContent = '📖';
+            } else {
+                scoreMessageSpan.textContent = 'Keep trying! Practice makes perfect! 💪';
+                scoreEmojiSpan.textContent = '🎯';
+            }
+            
+            scoreDisplay.classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            // Clear selected answers
+            Object.keys(selectedAnswers).forEach(key => {
+                delete selectedAnswers[key];
+            });
+            
+            // Remove all selected, correct, and incorrect classes
+            answerBtns.forEach(btn => {
+                btn.classList.remove('selected');
+                btn.classList.remove('correct');
+                btn.classList.remove('incorrect');
+            });
+            
+            // Clear feedback messages
+            const feedbacks = document.querySelectorAll('.feedback');
+            feedbacks.forEach(fb => {
+                fb.classList.remove('correct');
+                fb.classList.remove('incorrect');
+                fb.textContent = '';
+            });
+            
+            // Hide score display
+            scoreDisplay.classList.remove('show');
+        }
+    </script>
+</body>
+</html>
